@@ -1,0 +1,13 @@
+{
+    "name": "webjump/project",
+    "type": "project",
+    "require": {
+        "pecee/simple-router": "4.2.0.6"
+    },
+    "authors": [
+        {
+            "name": "Danilo Suguimoto",
+            "email": "danilo.suguimoto@webjump.com.br"
+        }
+    ]
+}
