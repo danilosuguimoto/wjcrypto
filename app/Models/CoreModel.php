@@ -4,80 +4,216 @@ declare(strict_types=1);
 
 namespace WjCrypto\Models;
 
+use Exception;
 use PDO;
 use WjCrypto\DatabaseConnection\DBConnection as DB;
 use WjCrypto\Interfaces\ModelsInterface;
 
+/**
+ * CoreModel
+ */
 class CoreModel implements ModelsInterface {
   private $tableName;
   private $columns;
-  private $conn;
-
+  protected $conn;
+  
+  /**
+   * __construct
+   *
+   * @param  DB $connection
+   * @return void
+   */
   public function __construct(DB $connection) {
     $this->conn = $connection->getDBConnection();
   }
+  
+  /**
+   * bindStatementValue
+   *
+   * @param  array $data
+   * @return array
+   */
+  private function bindStatementValue(array $data)  {
+    foreach($data as $column => $value) {
+      $bindedValues[$column] = ":" . strtoupper($column);
+    }
 
+    return $bindedValues;
+  }
+  
+  /**
+   * checkIfColumnExists
+   *
+   * @param  string $columnName
+   * @return void
+   */
+  public function checkIfColumnExists(string $columnName) {
+    if(!in_array($columnName, $this->columns)) {
+      throw new Exception("Column $columnName does not exist.");
+    }
+  }
+  
+  /**
+   * setAttributes
+   *
+   * @param  string $tableName
+   * @param  array $columns
+   * @return void
+   */
   public function setAttributes(string $tableName, array $columns) {
     $this->tableName = $tableName;
     $this->columns = $columns;
   }
-
-  public function getTableName() {
-    return $this->tableName;
+  
+  /**
+   * getAttributes
+   *
+   * @return array
+   */
+  public function getAttributes() {
+    return [
+      $this->tableName,
+      $this->columns
+    ];
   }
-
-  public function getColumns() {
-    return $this->columns;
+  
+  /**
+   * selectDataFrom
+   *
+   * @param  int $id
+   * @return array
+   */
+  public function selectDataFrom(int $id) {
+    try {
+      $stmt = $this->conn->prepare(
+        "SELECT * FROM $this->tableName WHERE user_id=:ID"
+      );
+      $stmt->bindParam(":ID", $id);
+      $stmt->execute();
+  
+      $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+  
+      return $result;
+    }
+    catch(Exception $e) {
+      echo $e->getMessage();
+    }
   }
-
-  public function getDataFrom(string $columnName) {
-    $stmt = $this->conn->prepare(
-      "SELECT $columnName FROM $this->tableName"
-    );
-    $stmt->execute();
-
-    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-    return $result;
+  
+  /**
+   * selectAllData
+   *
+   * @return array
+   */
+  public function selectAllData() {
+    try {
+      $stmt = $this->conn->prepare(
+        "SELECT * FROM $this->tableName"
+      );
+      $stmt->execute();
+  
+      $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+  
+      return $result;
+    }
+    catch(Exception $e) {
+      echo $e->getMessage();
+    }
   }
+  
+  /**
+   * insertData
+   *
+   * @param  array $data
+   * @return void
+   */
+  public function insertData(array $data) {
+    $bindedValues = $this->bindStatementValue($data);
 
-  public function getAllData() {
-    $stmt = $this->conn->prepare(
-      "SELECT * FROM $this->tableName"
-    );
-    $stmt->execute();
-
-    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-    return $result;
-  }
-
-  public function insertData(array $columns, array $values) {
-    $bindKeys = [];
-
-    foreach($values as $value) {
-      $bindKeys[$value] = ":" . strtoupper($value);
+    foreach($data as $column => $value) {
+      $columns[] = $column; 
     }
 
-    $bindKeysStr = implode(", ", $bindKeys);
+    $bindedValuesStr = implode(", ", $bindedValues);
     $columnsStr = implode(", ", $columns);
 
-    $stmt = $this->conn->prepare(
-      "INSERT INTO  $this->tableName ($columnsStr) VALUES ($bindKeysStr)"
-    );
+    try {
+      foreach($columns as $column) {
+        $this->checkIfColumnExists($column);
+      }
 
-    foreach($bindKeys as $bindKey) {
-      $stmt->bindParam($bindKey, $value);
+      $stmt = $this->conn->prepare(
+        "INSERT INTO  $this->tableName ($columnsStr) VALUES ($bindedValuesStr)"
+      );
+  
+      foreach($bindedValues as $bindedValue) {
+        $stmt->bindParam($bindedValue, $value);
+      }
+  
+      $stmt->execute();
+    }
+    catch(Exception $e) {
+      echo $e->getMessage();
+    }
+  }
+  
+  /**
+   * updateData
+   *
+   * @param  array $data
+   * @param  string $where
+   * @param  int $id
+   * @return void
+   */
+  public function updateData(array $data, string $where, int $id) {
+    $bindedValues = $this->bindStatementValue($data);
+
+    foreach($data as $column => $value) {
+      $concatData[] = "$column=" . $bindedValues[$column];
     }
 
-    $stmt->execute();
-  }
+    $concatDataStr = implode(", ", $concatData);
 
+    try {
+      foreach($data as $column => $value) {
+        $this->checkIfColumnExists($column);
+      }
+      
+      $stmt = $this->conn->prepare(
+        "UPDATE $this->tableName SET $concatDataStr WHERE $where=:ID"
+      );
+  
+      foreach($bindedValues as $bindedValue) {
+        $stmt->bindParam($bindedValue, $value);
+      }
+  
+      $stmt->bindParam(":ID", $id);
+      $stmt->execute();    
+    }
+    catch(Exception $e) {
+      echo $e->getMessage();
+    }
+  }
+  
+  /**
+   * deleteData
+   *
+   * @param  string $column
+   * @param  string $value
+   * @return void
+   */
   public function deleteData(string $column, string $value) {
-    $stmt = $this->conn->prepare(
-      "DELETE FROM $this->tableName WHERE $column=:VALUE"
-    );
-    $stmt->bindParam(":VALUE", $value);
-    $stmt->execute();
+    try {
+      $this->checkIfColumnExists($column);
+
+      $stmt = $this->conn->prepare(
+        "DELETE FROM $this->tableName WHERE $column=:VAL"
+      );
+      $stmt->bindParam(":VAL", $value);
+      $stmt->execute();
+    } 
+    catch(Exception $e) {
+      echo $e->getMessage(); 
+    }
   }
 }
