@@ -2,14 +2,16 @@
 
 namespace WjCrypto\Interfaces;
 
-interface ModelsInterface {
+interface ModelsInterface {  
   public function setAttributes(string $tableName, array $columns);
 
-  public function getDataFrom(string $columnName);
+  public function selectDataFrom(int $id);
   
-  public function getAllData();
+  public function selectAllData();
 
-  public function insertData(array $columns, array $values);
+  public function insertData(array $data);
+
+  public function updateData(array $data, string $where, int $id);
 
   public function deleteData(string $columns, string $value);
 }
