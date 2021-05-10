@@ -1,13 +1,19 @@
 {
-    "name": "webjump/project",
-    "type": "project",
-    "require": {
-        "pecee/simple-router": "4.2.0.6"
-    },
-    "authors": [
-        {
-            "name": "Danilo Suguimoto",
-            "email": "danilo.suguimoto@webjump.com.br"
-        }
-    ]
+	"name": "webjump/project",
+	"type": "project",
+	"description": "",
+	"require": {
+		"pecee/simple-router": "4.3.3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"WjCrypto\\": "app/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Danilo Suguimoto",
+			"email": "danilo.suguimoto@webjump.com.br"
+		}
+	]
 }
