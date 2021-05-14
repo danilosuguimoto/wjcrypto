@@ -7,9 +7,9 @@ namespace WjCrypto\DatabaseConnection;
 use PDO;
 
 /**
- * DBConnection
+ * DBManager
  */
-class DBConnection {
+class DBManager {
 
   private static $connection;
   
@@ -18,8 +18,7 @@ class DBConnection {
    *
    * @return void
    */
-  public function __construct() {
-    $connection = new PDO("mysql:host=localhost; port=3306; dbname=wj_crypto;", "root", "t8n58jpOy-1Bg2PCkP17gflhGie1oRCV");
+  public function __construct(PDO $connection) {
     self::$connection = $connection;
   }
   
@@ -28,7 +27,7 @@ class DBConnection {
    *
    * @return PDO
    */
-  public function getDBConnection() {
+  public static function getDBConnection() {
     return self::$connection;
   }
 
