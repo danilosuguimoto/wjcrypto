@@ -6,7 +6,7 @@ namespace WjCrypto\Models;
 
 use Exception;
 use PDO;
-use WjCrypto\DatabaseConnection\DBConnection as DB;
+use WjCrypto\DatabaseConnection\DBManager as Database;
 use WjCrypto\Interfaces\ModelsInterface;
 
 /**
@@ -15,21 +15,25 @@ use WjCrypto\Interfaces\ModelsInterface;
 class CoreModel implements ModelsInterface {
   private $tableName;
   private $columns;
-  protected $conn;
+  private $connection;
   
   /**
    * __construct
+   * 
+   * Sets the database connection
    *
-   * @param  DB $connection
    * @return void
    */
-  public function __construct(DB $connection) {
-    $this->conn = $connection->getDBConnection();
+  public function __construct() {
+    $this->connection = Database::getDBConnection();
   }
   
   /**
    * bindStatementValue
    *
+   * This method will return an array of strings for binding
+   * SQL paramenters, so that each statement can be safeley executed
+   * 
    * @param  array $data
    * @return array
    */
@@ -44,6 +48,9 @@ class CoreModel implements ModelsInterface {
   /**
    * checkIfColumnExists
    *
+   * This method compares the $columns attribute with the column currently in use
+   * by any of the CRUD methods
+   * 
    * @param  string $columnName
    * @return void
    */
@@ -72,27 +79,29 @@ class CoreModel implements ModelsInterface {
    */
   public function getAttributes() {
     return [
-      $this->tableName,
-      $this->columns
+      'tableName' => $this->tableName,
+      'columns' => $this->columns
     ];
   }
   
   /**
    * selectDataFrom
    *
+   * Selects data from the specified table, based on the WHERE argument (ID)
+   * 
    * @param  int $id
    * @return array
    */
   public function selectDataFrom(int $id) {
     try {
-      $stmt = $this->conn->prepare(
+      $stmt = $this->connection->prepare(
         "SELECT * FROM $this->tableName WHERE user_id=:ID"
       );
       $stmt->bindParam(":ID", $id);
       $stmt->execute();
   
       $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-  
+      
       return $result;
     }
     catch(Exception $e) {
@@ -107,7 +116,7 @@ class CoreModel implements ModelsInterface {
    */
   public function selectAllData() {
     try {
-      $stmt = $this->conn->prepare(
+      $stmt = $this->connection->prepare(
         "SELECT * FROM $this->tableName"
       );
       $stmt->execute();
@@ -142,14 +151,14 @@ class CoreModel implements ModelsInterface {
         $this->checkIfColumnExists($column);
       }
 
-      $stmt = $this->conn->prepare(
+      $stmt = $this->connection->prepare(
         "INSERT INTO  $this->tableName ($columnsStr) VALUES ($bindedValuesStr)"
       );
-  
-      foreach($bindedValues as $bindedValue) {
-        $stmt->bindParam($bindedValue, $value);
+
+      foreach($bindedValues as $column => $value) {
+        $stmt->bindParam($value, $data[$column]);
       }
-  
+      
       $stmt->execute();
     }
     catch(Exception $e) {
@@ -179,7 +188,7 @@ class CoreModel implements ModelsInterface {
         $this->checkIfColumnExists($column);
       }
       
-      $stmt = $this->conn->prepare(
+      $stmt = $this->connection->prepare(
         "UPDATE $this->tableName SET $concatDataStr WHERE $where=:ID"
       );
   
@@ -206,7 +215,7 @@ class CoreModel implements ModelsInterface {
     try {
       $this->checkIfColumnExists($column);
 
-      $stmt = $this->conn->prepare(
+      $stmt = $this->connection->prepare(
         "DELETE FROM $this->tableName WHERE $column=:VAL"
       );
       $stmt->bindParam(":VAL", $value);
