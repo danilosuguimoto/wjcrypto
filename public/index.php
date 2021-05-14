@@ -1,11 +1,16 @@
 <?php
 
-require "../vendor/autoload.php";
+declare(strict_types=1);
+
+require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../lib/Routes.php";
+require_once __DIR__ . '/../lib/Helper.php';
+require_once __DIR__ . "/../app/Objects/DBObject.php";
+require_once __DIR__ . "/../app/Objects/ViewObject.php";
 
 use Pecee\SimpleRouter\SimpleRouter;
 
-SimpleRouter::get('/', function() {
-  echo "test";
-});
+// error_reporting(E_ALL);
+// ini_set('display_errors', '0');
 
 SimpleRouter::start();
