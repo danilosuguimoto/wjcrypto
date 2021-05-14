@@ -11,7 +11,8 @@ use WjCrypto\Models\CoreModel;
  */
 class UserModel extends CoreModel{  
   private $userId;
-  private $accNumber;
+  private $acc_number;
+  private $password;
   private $name;
   private $dob;
   private $phone;
@@ -19,17 +20,15 @@ class UserModel extends CoreModel{
   private $company_registration;
   private $company_foundation;
 
-  /**
-   * userAttributes
-   *
-   * @return void
-   */
-  public function userAttributes() {
-    $this->setAttributes(
+  public function __construct()
+  {
+    parent::__construct();
+    parent::setAttributes(
       "wj_crypto.user",
       [
         "user_id",
         "acc_number",
+        "password",
         "name",
         "dob",
         "phone",
@@ -38,58 +37,6 @@ class UserModel extends CoreModel{
         "company_foundation"
       ]
     );
-  }
-
-  /**
-   * selectAllUsersData
-   *
-   * @return array
-   */
-  public function selectAllUsersData() {
-    return $this->selectAllData();
-  }
-  
-  /**
-   * selectDataFromUserId
-   *
-   * @param  int $id
-   * @return array
-   */
-  public function selectDataFromUserId($id) {
-    return $this->selectDataFrom($id);
-  }
-    
-  /**
-   * addUserData
-   *
-   * @param  array $data
-   * @return void
-   */
-  public function addUserData(array $data) {
-    $this->insertData($data);
-  }
-    
-  /**
-   * updateUserData
-   *
-   * @param  array $data
-   * @param  string $where
-   * @param  int $id
-   * @return void
-   */
-  public function updateUserData(array $data, string $where, int $id) {
-    $this->updateData($data, $where, $id);
-  }
-  
-  /**
-   * deleteUserData
-   *
-   * @param  string $column
-   * @param  string $value
-   * @return void
-   */
-  public function deleteUserData(string $column, string $value) {
-    $this->deleteData($column, $value);
   }
 
   /**
@@ -113,21 +60,41 @@ class UserModel extends CoreModel{
   }
 
   /**
-   * Get the value of accNumber
+   * Get the value of acc_number
    */ 
   public function getAccNumber()
   {
-    return $this->accNumber;
+    return $this->acc_number;
   }
 
   /**
-   * Set the value of accNumber
+   * Set the value of acc_number
    *
    * @return  self
    */ 
-  public function setAccNumber($accNumber)
+  public function setAccNumber($acc_number)
   {
-    $this->accNumber = $accNumber;
+    $this->acc_number = $acc_number;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of password
+   */ 
+  public function getPassword()
+  {
+    return $this->password;
+  }
+
+  /**
+   * Set the value of password
+   *
+   * @return  self
+   */ 
+  public function setPassword($password)
+  {
+    $this->password = $password;
 
     return $this;
   }

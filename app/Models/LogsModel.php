@@ -14,15 +14,11 @@ class UserAddressModel extends CoreModel {
   private $acc_number;
   private $action_type;
   private $created_at;
-  private $is_error; 
+  private $is_error;
 
-  /**
-   * transactionAttributes
-   *
-   * @return void
-   */
-  public function transactionAttributes() {
-    $this->setAttributes(
+  public function __construct()
+  {
+    parent::setAttributes(
       "wj_crypto.actions_log",
       [
         "action_id",
@@ -32,35 +28,6 @@ class UserAddressModel extends CoreModel {
         "is_error"
       ]
     );
-  }
-    
-  /**
-   * selectAllTransactionsData
-   *
-   * @return array
-   */
-  public function selectAllLoggedData() {
-    return $this->selectAllData();
-  }
-    
-  /**
-   * selectDataFromTransactionId
-   *
-   * @param  int $id
-   * @return array
-   */
-  public function selectDataFromActionId($id) {
-    return $this->selectDataFrom($id);
-  }
-      
-  /**
-   * addTransactionData
-   *
-   * @param  array $data
-   * @return void
-   */
-  public function logData(array $data) {
-    $this->insertData($data);
   }
 
   /**

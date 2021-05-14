@@ -19,13 +19,10 @@ class UserAddressModel extends CoreModel {
   private $street;
   private $complement;
 
-  /**
-   * addressAttributes
-   *
-   * @return void
-   */
-  public function addressAttributes() {
-    $this->setAttributes(
+  public function __construct()
+  {
+    parent::__construct();
+    parent::setAttributes(
       "wj_crypto.user_address",
       [
         "address_id",
@@ -38,58 +35,6 @@ class UserAddressModel extends CoreModel {
         "complement"
       ]
     );
-  }
-  
-  /**
-   * selectAllAddressData
-   *
-   * @return array
-   */
-  public function selectAllAddressData() {
-    return $this->selectAllData();
-  }
-  
-  /**
-   * selectDataFromAddressId
-   *
-   * @param  int $id
-   * @return array
-   */
-  public function selectDataFromAddressId($id) {
-    return $this->selectDataFrom($id);
-  }
-    
-  /**
-   * addAddressData
-   *
-   * @param  array $data
-   * @return void
-   */
-  public function addAddressData(array $data) {
-    $this->insertData($data);
-  }
-    
-  /**
-   * updateAddressData
-   *
-   * @param  array $data
-   * @param  string $where
-   * @param  int $id
-   * @return void
-   */
-  public function updateAddressData(array $data, string $where, int $id) {
-    $this->updateData($data, $where, $id);
-  }
-  
-  /**
-   * deleteAddressData
-   *
-   * @param  string $column
-   * @param  string $value
-   * @return void
-   */
-  public function deleteAddressData(string $column, string $value) {
-    $this->deleteData($column, $value);
   }
 
   /**

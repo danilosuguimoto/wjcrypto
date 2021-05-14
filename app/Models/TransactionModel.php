@@ -16,14 +16,11 @@ class TransactionModel extends CoreModel {
   private $created_at;
   private $from_acc;
   private $to_acc;
-  
-  /**
-   * transactionAttributes
-   *
-   * @return void
-   */
-  public function transactionAttributes() {
-    $this->setAttributes(
+
+  public function __construct()
+  {
+    parent::__construct();
+    parent::setAttributes(
       "wj_crypto.transactions",
       [
         "transaction_id",
@@ -35,36 +32,7 @@ class TransactionModel extends CoreModel {
       ]
     );
   }
-    
-  /**
-   * selectAllTransactionsData
-   *
-   * @return array
-   */
-  public function selectAllTransactionsData() {
-    return $this->selectAllData();
-  }
-    
-  /**
-   * selectDataFromTransactionId
-   *
-   * @param  int $id
-   * @return array
-   */
-  public function selectDataFromTransactionId($id) {
-    return $this->selectDataFrom($id);
-  }
-      
-  /**
-   * addTransactionData
-   *
-   * @param  array $data
-   * @return void
-   */
-  public function addTransactionData(array $data) {
-    $this->insertData($data);
-  }
-
+  
   /**
    * Get the value of transaction_id
    */ 
