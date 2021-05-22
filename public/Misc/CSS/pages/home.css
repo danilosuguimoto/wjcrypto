@@ -1,0 +1,7 @@
+.welcome-message {
+  margin: auto 2em auto auto;
+}
+
+.welcome-message span {
+  border-bottom: 2.5px solid red;
+}
