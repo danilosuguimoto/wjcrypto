@@ -65,16 +65,16 @@ class UserApiController {
    * @return void
    */
   public function createUser() {
-    $password = password_hash('Senha1234', PASSWORD_ARGON2I);
+    $request_content = json_decode(file_get_contents('php://input'));
 
-    Helper::request();
+    $password = password_hash($request_content->password, PASSWORD_ARGON2I);
 
-    $this->userModel->setAccNumber('dasjkgffhkj_dd1331234');
+    $this->userModel->setAccNumber($request_content->acc_number);
     $this->userModel->setPassword($password);
-    $this->userModel->setName('Danilo Suguimoto');
-    $this->userModel->setDob('2001-08-06');
-    $this->userModel->setPhone('(11) 95270-6609');
-    $this->userModel->setDocumentNumber('43212715847');
+    $this->userModel->setName($request_content->name);
+    $this->userModel->setDob($request_content->dob);
+    $this->userModel->setPhone($request_content->phone);
+    $this->userModel->setDocumentNumber($request_content->document_number);
 
     $data = [
       'acc_number' => $this->userModel->getAccNumber(),
@@ -87,6 +87,8 @@ class UserApiController {
 
     $this->userModel->insertData($data);
 
-    echo 'User Created Succesfully';
+    return Helper::response()->json(
+      ["message" => "Usuário criado com sucesso"]
+    );
   }
 }
