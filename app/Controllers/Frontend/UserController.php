@@ -24,7 +24,17 @@ class UserController {
     $this->blade = ViewManager::getViewObject();
   }
 
+  public function login() {
+    echo $this->blade->render(
+      'home', 
+      [
+        'username' => $_POST["acc_number"],
+        'name' => 'Danilo Suguimoto'
+      ]
+    );
+  }
+
   public function showHomePage() {
-    echo $this->blade->render('general_layout', ['title' => 'Home']);
+    echo $this->blade->render('login', ['name' => 'Danilo Suguimoto']);
   }
 }
