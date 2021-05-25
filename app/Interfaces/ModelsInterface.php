@@ -5,7 +5,7 @@ namespace WjCrypto\Interfaces;
 interface ModelsInterface {  
   public function setAttributes(string $tableName, array $columns);
 
-  public function selectDataFrom(int $id);
+  public function selectDataFrom(string $column, $value);
   
   public function selectAllData();
 
