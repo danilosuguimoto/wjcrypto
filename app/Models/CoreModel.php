@@ -56,7 +56,7 @@ class CoreModel implements ModelsInterface {
    */
   public function checkIfColumnExists(string $columnName) {
     if(!in_array($columnName, $this->columns)) {
-      throw new Exception("Column $columnName does not exist.");
+      throw new Exception("Coluna $columnName não encontrada.");
     }
   }
   
@@ -88,20 +88,22 @@ class CoreModel implements ModelsInterface {
    * selectDataFrom
    *
    * Selects data from the specified table, based on the WHERE argument (ID)
-   * 
+   *
    * @param  int $id
-   * @return array
+   * @return object
    */
-  public function selectDataFrom(int $id) {
+  public function selectDataFrom(string $column, $value) {
     try {
+      $this->checkIfColumnExists($column);
+
       $stmt = $this->connection->prepare(
-        "SELECT * FROM $this->tableName WHERE user_id=:ID"
+        "SELECT * FROM $this->tableName WHERE $column=:VAL"
       );
-      $stmt->bindParam(":ID", $id);
+      $stmt->bindParam(":VAL", $value);
       $stmt->execute();
-  
-      $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-      
+
+      $result = $stmt->fetch(PDO::FETCH_OBJ);
+
       return $result;
     }
     catch(Exception $e) {

@@ -17,8 +17,7 @@ class TransactionModel extends CoreModel {
   private $from_acc;
   private $to_acc;
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
     parent::setAttributes(
       "wj_crypto.transactions",
@@ -36,8 +35,7 @@ class TransactionModel extends CoreModel {
   /**
    * Get the value of transaction_id
    */ 
-  public function getTransactionId()
-  {
+  public function getTransactionId() {
     return $this->transaction_id;
   }
 
@@ -46,8 +44,7 @@ class TransactionModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setTransactionId($transaction_id)
-  {
+  public function setTransactionId($transaction_id) {
     $this->transaction_id = $transaction_id;
 
     return $this;
@@ -56,8 +53,7 @@ class TransactionModel extends CoreModel {
   /**
    * Get the value of acc_number
    */ 
-  public function getAccNumber()
-  {
+  public function getAccNumber() {
     return $this->acc_number;
   }
 
@@ -66,8 +62,7 @@ class TransactionModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setAccNumber($acc_number)
-  {
+  public function setAccNumber($acc_number) {
     $this->acc_number = $acc_number;
 
     return $this;
@@ -76,8 +71,7 @@ class TransactionModel extends CoreModel {
   /**
    * Get the value of type
    */ 
-  public function getType()
-  {
+  public function getType() {
     return $this->type;
   }
 
@@ -86,8 +80,7 @@ class TransactionModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setType($type)
-  {
+  public function setType($type) {
     $this->type = $type;
 
     return $this;
@@ -96,8 +89,7 @@ class TransactionModel extends CoreModel {
   /**
    * Get the value of created_at
    */ 
-  public function getCreatedAt()
-  {
+  public function getCreatedAt() {
     return $this->created_at;
   }
 
@@ -106,8 +98,7 @@ class TransactionModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setCreatedAt($created_at)
-  {
+  public function setCreatedAt($created_at) {
     $this->created_at = $created_at;
 
     return $this;
@@ -116,8 +107,7 @@ class TransactionModel extends CoreModel {
   /**
    * Get the value of from_acc
    */ 
-  public function getFromAcc()
-  {
+  public function getFromAcc() {
     return $this->from_acc;
   }
 
@@ -126,8 +116,7 @@ class TransactionModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setFromAcc($from_acc)
-  {
+  public function setFromAcc($from_acc) {
     $this->from_acc = $from_acc;
 
     return $this;
@@ -136,8 +125,7 @@ class TransactionModel extends CoreModel {
   /**
    * Get the value of to_acc
    */ 
-  public function getToAcc()
-  {
+  public function getToAcc() {
     return $this->to_acc;
   }
 
@@ -146,8 +134,7 @@ class TransactionModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setToAcc($to_acc)
-  {
+  public function setToAcc($to_acc) {
     $this->to_acc = $to_acc;
 
     return $this;
