@@ -4,7 +4,9 @@
 	"description": "",
 	"require": {
 		"pecee/simple-router": "4.3.3.0",
-		"jenssegers/blade": "^1.4"
+		"jenssegers/blade": "^1.4",
+		"php-di/php-di": "^6.3",
+		"monolog/monolog": "^2.2"
 	},
 	"autoload": {
 		"psr-4": {
