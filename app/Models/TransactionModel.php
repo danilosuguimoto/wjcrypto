@@ -18,7 +18,6 @@ class TransactionModel extends CoreModel {
   private $to_acc;
 
   public function __construct() {
-    parent::__construct();
     parent::setAttributes(
       "wj_crypto.transactions",
       [

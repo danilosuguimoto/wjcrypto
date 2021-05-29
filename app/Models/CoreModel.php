@@ -6,28 +6,13 @@ namespace WjCrypto\Models;
 
 use Exception;
 use PDO;
-use WjCrypto\DatabaseConnection\DBManager as Database;
+use WjCrypto\DI\Builder;
 use WjCrypto\Interfaces\ModelsInterface;
 
-/**
- * CoreModel
- */
-class CoreModel implements ModelsInterface {
-  private $tableName;
-  private $columns;
-  private $connection;
-  
-  /**
-   * __construct
-   * 
-   * Sets the database connection
-   *
-   * @return void
-   */
-  public function __construct() {
-    $this->connection = Database::getDBConnection();
-  }
-  
+class CoreModel extends ModelManager implements ModelsInterface {
+  private static $tableName;
+  private static $columns;
+
   /**
    * bindStatementValue
    *
@@ -37,7 +22,7 @@ class CoreModel implements ModelsInterface {
    * @param  array $data
    * @return array
    */
-  private function bindStatementValue(array $data)  {
+  private static function bindStatementValue(array $data)  {
     foreach($data as $column => $value) {
       $bindedValues[$column] = ":" . strtoupper($column);
     }
@@ -54,8 +39,8 @@ class CoreModel implements ModelsInterface {
    * @param  string $columnName
    * @return void
    */
-  public function checkIfColumnExists(string $columnName) {
-    if(!in_array($columnName, $this->columns)) {
+  public static function checkIfColumnExists(string $columnName) {
+    if(!in_array($columnName, self::$columns)) {
       throw new Exception("Coluna $columnName não encontrada.");
     }
   }
@@ -67,9 +52,9 @@ class CoreModel implements ModelsInterface {
    * @param  array $columns
    * @return void
    */
-  public function setAttributes(string $tableName, array $columns) {
-    $this->tableName = $tableName;
-    $this->columns = $columns;
+  public static function setAttributes(string $tableName, array $columns) {
+    self::$tableName = $tableName;
+    self::$columns = $columns;
   }
   
   /**
@@ -77,10 +62,10 @@ class CoreModel implements ModelsInterface {
    *
    * @return array
    */
-  public function getAttributes() {
+  public static function getAttributes() {
     return [
-      'tableName' => $this->tableName,
-      'columns' => $this->columns
+      'tableName' => self::$tableName,
+      'columns' => self::$columns
     ];
   }
   
@@ -90,14 +75,16 @@ class CoreModel implements ModelsInterface {
    * Selects data from the specified table, based on the WHERE argument (ID)
    *
    * @param  int $id
-   * @return object
+   * @return object|false
    */
-  public function selectDataFrom(string $column, $value) {
-    try {
-      $this->checkIfColumnExists($column);
+  public static function selectDataFrom(string $column, $value) {
+    Builder::buildContainer()->get('ModelManager');
 
-      $stmt = $this->connection->prepare(
-        "SELECT * FROM $this->tableName WHERE $column=:VAL"
+    try {
+      self::checkIfColumnExists($column);
+
+      $stmt = self::$connection->getDBConnection()->prepare(
+        "SELECT * FROM " . self::$tableName . " WHERE $column=:VAL"
       );
       $stmt->bindParam(":VAL", $value);
       $stmt->execute();
@@ -116,10 +103,12 @@ class CoreModel implements ModelsInterface {
    *
    * @return array
    */
-  public function selectAllData() {
+  public static function selectAllData() {
+    Builder::buildContainer()->get('ModelManager');
+
     try {
-      $stmt = $this->connection->prepare(
-        "SELECT * FROM $this->tableName"
+      $stmt = self::$connection->getDBConnection()->prepare(
+        "SELECT * FROM " . self::$tableName
       );
       $stmt->execute();
   
@@ -138,8 +127,10 @@ class CoreModel implements ModelsInterface {
    * @param  array $data
    * @return void
    */
-  public function insertData(array $data) {
-    $bindedValues = $this->bindStatementValue($data);
+  public static function insertData(array $data) {
+    Builder::buildContainer()->get('ModelManager');
+
+    $bindedValues = self::bindStatementValue($data);
 
     foreach($data as $column => $value) {
       $columns[] = $column; 
@@ -150,11 +141,11 @@ class CoreModel implements ModelsInterface {
 
     try {
       foreach($columns as $column) {
-        $this->checkIfColumnExists($column);
+        self::checkIfColumnExists($column);
       }
 
-      $stmt = $this->connection->prepare(
-        "INSERT INTO  $this->tableName ($columnsStr) VALUES ($bindedValuesStr)"
+      $stmt = self::$connection->getDBConnection()->prepare(
+        "INSERT INTO " . self::$tableName . " ($columnsStr) VALUES ($bindedValuesStr)"
       );
 
       foreach($bindedValues as $column => $value) {
@@ -176,8 +167,10 @@ class CoreModel implements ModelsInterface {
    * @param  int $id
    * @return void
    */
-  public function updateData(array $data, string $where, int $id) {
-    $bindedValues = $this->bindStatementValue($data);
+  public static function updateData(array $data, string $where, int $id) {
+    Builder::buildContainer()->get('ModelManager');
+
+    $bindedValues = self::bindStatementValue($data);
 
     foreach($data as $column => $value) {
       $concatData[] = "$column=" . $bindedValues[$column];
@@ -187,11 +180,11 @@ class CoreModel implements ModelsInterface {
 
     try {
       foreach($data as $column => $value) {
-        $this->checkIfColumnExists($column);
+        self::checkIfColumnExists($column);
       }
       
-      $stmt = $this->connection->prepare(
-        "UPDATE $this->tableName SET $concatDataStr WHERE $where=:ID"
+      $stmt = self::$connection->getDBConnection()->prepare(
+        "UPDATE " . self::$tableName . " SET $concatDataStr WHERE $where=:ID"
       );
   
       foreach($bindedValues as $bindedValue) {
@@ -213,12 +206,14 @@ class CoreModel implements ModelsInterface {
    * @param  string $value
    * @return void
    */
-  public function deleteData(string $column, string $value) {
+  public static function deleteData(string $column, string $value) {
+    Builder::buildContainer()->get('ModelManager');
+    
     try {
-      $this->checkIfColumnExists($column);
+      self::checkIfColumnExists($column);
 
-      $stmt = $this->connection->prepare(
-        "DELETE FROM $this->tableName WHERE $column=:VAL"
+      $stmt = self::$connection->getDBConnection()->prepare(
+        "DELETE FROM " . self::$tableName . " WHERE $column=:VAL"
       );
       $stmt->bindParam(":VAL", $value);
       $stmt->execute();

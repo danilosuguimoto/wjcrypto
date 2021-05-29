@@ -20,7 +20,6 @@ class UserAddressModel extends CoreModel {
   private $complement;
 
   public function __construct() {
-    parent::__construct();
     parent::setAttributes(
       "wj_crypto.user_address",
       [

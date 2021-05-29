@@ -17,9 +17,8 @@ class UserModel extends CoreModel {
   private $dob;
   private $phone;
   private $document_number;
-  
+
   public function __construct() {
-    parent::__construct();
     parent::setAttributes(
       "wj_crypto.user",
       [
@@ -29,7 +28,7 @@ class UserModel extends CoreModel {
         "name",
         "dob",
         "phone",
-        "document_number",
+        "document_number"
       ]
     );
   }
