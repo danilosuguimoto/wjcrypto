@@ -2,6 +2,7 @@
 
 namespace WjCrypto\Interfaces;
 
-interface DBInterface {
+interface DBInterface
+{
   public static function getDBConnection(): object;
 }
