@@ -7,13 +7,17 @@ use DI\Container;
 use DI\ContainerBuilder;
 use function DI\factory;
 use Jenssegers\Blade\Blade;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use WjCrypto\DatabaseConnection\DBManager;
 use WjCrypto\Models\ModelManager;
+use WjCrypto\Models\TransactionModel;
+use WjCrypto\Models\UserAddressModel;
 use WjCrypto\Models\UserModel;
 use WjCrypto\Views\ViewManager;
 
-class Builder {
+class Builder 
+{
   private static $builder;
   
   /**
@@ -23,7 +27,8 @@ class Builder {
    * 
    * @return Container
    */
-  public static function buildContainer(): Container {
+  public static function buildContainer(): Container 
+  {
     self::$builder = new ContainerBuilder();
 
     self::$builder->addDefinitions([
@@ -44,11 +49,23 @@ class Builder {
       }),
 
       'Blade' => factory(function () {
-        return new Blade(__DIR__ . '/../Views/pages' , __DIR__ . '/../Views/cache');
+        return new Blade(__DIR__ . '/../Views' , __DIR__ . '/../Views/cache');
       }),
 
       'UserModel' => factory(function () {
         return new UserModel();
+      }),
+
+      'UserAddressModel' => factory(function () {
+        return new UserAddressModel();
+      }),
+
+      'TransactionModel' => factory(function () {
+        return new TransactionModel();
+      }),
+
+      'Logger' => factory(function () {
+        return new Logger('WjCrypto');
       })
     ]);
 
