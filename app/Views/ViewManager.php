@@ -9,7 +9,8 @@ use Jenssegers\Blade\Blade;
 /**
  * ViewManager
  */
-class ViewManager {
+class ViewManager 
+{
   protected static $blade;
     
   /**
@@ -17,7 +18,8 @@ class ViewManager {
    *
    * @return void
    */
-  public function __construct(Blade $blade) {
+  public function __construct(Blade $blade) 
+  {
     self::$blade = $blade;
   }
   
@@ -28,7 +30,8 @@ class ViewManager {
    * 
    * @return Blade
    */
-  public static function getViewObject() {
+  public static function getViewObject() 
+  {
     return self::$blade;
   }
 }
