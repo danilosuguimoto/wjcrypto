@@ -9,17 +9,19 @@ use WjCrypto\Models\CoreModel;
 /**
  * UserAddressModel
  */
-class UserAddressModel extends CoreModel {
+class UserAddressModel extends CoreModel 
+{
   private $address_id;
   private $acc_number;
   private $postcode;
-  private $contry;
+  private $country;
   private $region;
   private $city;
   private $street;
   private $complement;
 
-  public function __construct() {
+  public function __construct() 
+  {
     parent::setAttributes(
       "wj_crypto.user_address",
       [
@@ -38,7 +40,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of address_id
    */ 
-  public function getAddressId() {
+  public function getAddressId() 
+  {
     return $this->address_id;
   }
 
@@ -47,7 +50,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setAddressId($address_id) {
+  public function setAddressId($address_id) 
+  {
     $this->address_id = $address_id;
 
     return $this;
@@ -56,7 +60,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of acc_number
    */ 
-  public function getAccNumber() {
+  public function getAccNumber() 
+  {
     return $this->acc_number;
   }
 
@@ -65,7 +70,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setAccNumber($acc_number) {
+  public function setAccNumber($acc_number) 
+  {
     $this->acc_number = $acc_number;
 
     return $this;
@@ -74,7 +80,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of postcode
    */ 
-  public function getPostcode() {
+  public function getPostcode() 
+  {
     return $this->postcode;
   }
 
@@ -83,26 +90,29 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setPostcode($postcode) {
+  public function setPostcode($postcode) 
+  {
     $this->postcode = $postcode;
 
     return $this;
   }
 
   /**
-   * Get the value of contry
+   * Get the value of country
    */ 
-  public function getContry() {
-    return $this->contry;
+  public function getCountry() 
+  {
+    return $this->country;
   }
 
   /**
-   * Set the value of contry
+   * Set the value of country
    *
    * @return  self
    */ 
-  public function setContry($contry) {
-    $this->contry = $contry;
+  public function setCountry($country) 
+  {
+    $this->country = $country;
 
     return $this;
   }
@@ -110,7 +120,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of region
    */ 
-  public function getRegion() {
+  public function getRegion() 
+  {
     return $this->region;
   }
 
@@ -119,7 +130,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setRegion($region) {
+  public function setRegion($region) 
+  {
     $this->region = $region;
 
     return $this;
@@ -128,7 +140,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of city
    */ 
-  public function getCity() {
+  public function getCity() 
+  {
     return $this->city;
   }
 
@@ -137,7 +150,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setCity($city) {
+  public function setCity($city) 
+  {
     $this->city = $city;
 
     return $this;
@@ -146,7 +160,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of street
    */ 
-  public function getStreet() {
+  public function getStreet() 
+  {
     return $this->street;
   }
 
@@ -155,7 +170,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setStreet($street) {
+  public function setStreet($street) 
+  {
     $this->street = $street;
 
     return $this;
@@ -164,7 +180,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of complement
    */ 
-  public function getComplement() {
+  public function getComplement() 
+  {
     return $this->complement;
   }
 
@@ -173,7 +190,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setComplement($complement) {
+  public function setComplement($complement) 
+  {
     $this->complement = $complement;
 
     return $this;
