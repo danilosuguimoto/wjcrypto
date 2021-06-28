@@ -7,16 +7,18 @@ namespace WjCrypto\Models;
 use WjCrypto\Models\CoreModel;
 
 /**
- * UserAddressModel
+ * LogsModel
  */
-class UserAddressModel extends CoreModel {
+class LogsModel extends CoreModel
+{
   private $action_id;
   private $acc_number;
   private $action_type;
   private $created_at;
   private $is_error;
 
-  public function __construct() {
+  public function __construct()
+  {
     parent::setAttributes(
       "wj_crypto.actions_log",
       [
@@ -32,7 +34,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of action_id
    */ 
-  public function getActionId() {
+  public function getActionId()
+  {
     return $this->action_id;
   }
 
@@ -41,7 +44,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setActionId($action_id) {
+  public function setActionId($action_id)
+  {
     $this->action_id = $action_id;
 
     return $this;
@@ -50,7 +54,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of acc_number
    */ 
-  public function getAccNumber() {
+  public function getAccNumber()
+  {
     return $this->acc_number;
   }
 
@@ -59,7 +64,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setAccNumber($acc_number) {
+  public function setAccNumber($acc_number)
+  {
     $this->acc_number = $acc_number;
 
     return $this;
@@ -68,7 +74,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of action_type
    */ 
-  public function getActionType() {
+  public function getActionType()
+  {
     return $this->action_type;
   }
 
@@ -77,7 +84,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setActionType($action_type) {
+  public function setActionType($action_type)
+  {
     $this->action_type = $action_type;
 
     return $this;
@@ -86,7 +94,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of created_at
    */ 
-  public function getCreatedAt() {
+  public function getCreatedAt()
+  {
     return $this->created_at;
   }
 
@@ -95,7 +104,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setCreatedAt($created_at) {
+  public function setCreatedAt($created_at)
+  {
     $this->created_at = $created_at;
 
     return $this;
@@ -104,7 +114,8 @@ class UserAddressModel extends CoreModel {
   /**
    * Get the value of is_error
    */ 
-  public function getIsError() {
+  public function getIsError()
+  {
     return $this->is_error;
   }
 
@@ -113,7 +124,8 @@ class UserAddressModel extends CoreModel {
    *
    * @return  self
    */ 
-  public function setIsError($is_error) {
+  public function setIsError($is_error)
+  {
     $this->is_error = $is_error;
 
     return $this;
