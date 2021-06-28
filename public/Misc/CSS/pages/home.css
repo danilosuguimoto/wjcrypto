@@ -1,7 +1,50 @@
-.welcome-message {
-  margin: auto 2em auto auto;
+.greetings {
+  color: rgba(127, 189, 184, 1);
+  font-size: xx-large;
 }
 
-.welcome-message span {
-  border-bottom: 2.5px solid red;
+.menu {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+}
+
+.menu-hr {
+  border: 1px solid rgba(127, 189, 184, 1);
+  box-shadow: none;
+}
+
+.menu-link {
+  background-color: red;
+  border-radius: 10px;
+  font-size: larger;
+  margin: auto;
+  padding: 10px;
+  transition: 0.5s ease-in-out;
+}
+
+.menu-link:hover {
+  padding: 15px;
+}
+
+.menu-link a {
+  color: white;
+}
+
+.menu-link a:visited {
+  color: white;
+}
+
+#options {
+  display: flex;
+  flex-direction: row;
+}
+
+#welcome-color1 {
+  color: red;
+}
+
+#welcome-color2 {
+  color: black;
 }

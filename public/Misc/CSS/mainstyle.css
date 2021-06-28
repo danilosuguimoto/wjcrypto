@@ -1,5 +1,24 @@
 a {
   text-decoration: none;
+  color: red;
+}
+
+a:visited {
+  color: red;
+}
+
+#balance-good {
+  background-color: rgb(58, 214, 58);
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+}
+
+#balance-bad {
+  background-color: red;
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
 }
 
 #bg-opacity {
@@ -25,8 +44,35 @@ body {
   margin: 0px;
 }
 
+.box-gradient-bg {
+  background-image: linear-gradient(to right bottom, rgb(252, 0, 0), rgba(127, 189, 184, 1));
+  border-radius: 20px;
+  box-shadow: 2px 2px 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.box-gradient-bg::before {
+  background-image: linear-gradient(to right bottom, rgba(127, 189, 184, 1), rgba(252, 0, 0, 0.761));
+  border-radius: 20px;
+  bottom: 0;
+  content: "";
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 1s ease-in-out;
+  z-index: -1;
+}
+
+.box-gradient-bg:hover::before {
+  opacity: 1;
+}
+
 .content-wrapper {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   padding: 1em;
   position: relative;
@@ -49,8 +95,18 @@ footer {
   right: 0;
 }
 
+.form-hr {
+  margin-bottom: 1em;
+}
+
+.form-title {
+  color: white;
+  text-shadow: black 2px 2px 3px;
+}
+
 .forms {
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -60,9 +116,61 @@ header {
   display: flex;
 }
 
+.header-balance {
+  margin: auto 2em auto auto;
+}
+
+.header-button {
+  background-color: red;
+  border-radius: 15px;
+  margin: auto 2em auto auto;
+  padding: 0.5em;
+  transition: 0.5s ease-in-out;
+}
+
+.header-button a {
+  color: white;
+  text-shadow: black 1px 1px 3px;
+  font-size: large;
+}
+
+.header-button:hover {
+  padding: 1em;
+}
+
+hr {
+  border: 1px solid white;
+  border-radius: 30px;
+  box-shadow: 0px 3px 4px black;
+  margin: 0;
+}
+
 h1 {
   margin: 0;
   padding: 1em;
+}
+
+.inputs {
+  background-color: rgba(186, 186, 186, 0.433);
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0 10px 0 10px;
+  box-shadow: 3px 2px 5px black;
+  color: white;
+  margin: 10px 0;
+  padding: 5px 10px;
+  width: 20em;
+}
+
+.inputs:focus {
+  background-color: white;
+  color: black;
+  outline: none;
+  text-shadow: none;
+}
+
+.labels {
+  color: white;
 }
 
 li {
@@ -70,19 +178,53 @@ li {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   margin: auto;
+}
+
+#main-title {
+  text-shadow: black 2px 2px 4px;
+}
+
+#main-title a:visited {
+  color: red;
+}
+
+#main-title-color2 {
+  color: black;
+}
+
+.page-title {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  text-shadow: 0px 2px 1px black;
+}
+
+#page-title-hr {
+  margin-bottom: 30px;
 }
 
 .shadow {
   text-shadow: black 1px 1px 2px;
 }
 
-#title {
-  text-shadow: black 2px 2px 4px;
+.submit-button {
+  background-color: red;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 0px 3px white;
+  color: white;
+  font-family: Righteous;
+  margin-top: 10px;
+  padding: 0.5em;
+  transition: 0.5s ease-in-out;
 }
 
-#title-color2 {
-  color: black;
+.submit-button:hover {
+  box-shadow: 0px 0px 10px white;
+  padding: 0.65em;
 }
 
 ul {

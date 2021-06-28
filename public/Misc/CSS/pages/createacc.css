@@ -1,0 +1,46 @@
+#already-has-an-account {
+  color: white;
+  margin-top: 25px;
+}
+
+#already-has-an-account a, #already-has-an-account a:visited {
+  text-decoration: underline;
+  color: rgb(120, 214, 207);
+}
+
+.createacc-division {
+  margin-right: 50px;
+}
+
+.createacc-form {
+  margin: auto;
+  padding: 0 20px 20px;
+}
+
+#createacc-inputs-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 10px 30px;
+}
+
+#create-address {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+
+#create-password {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-link {
+  color: white;
+  text-decoration: underline;
+}
+
+#personal-info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}

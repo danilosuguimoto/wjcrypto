@@ -1,0 +1,58 @@
+.deposit {
+  background-color: rgb(58, 214, 58);
+  color: white;
+}
+
+.transaction-form {
+  background-image: url(../../Images/wjbackground2.jpg);
+  border-radius: 10px;
+  margin: auto;
+  padding: 20px;
+}
+
+.transaction-form input[type='text'] {
+  background-color: rgb(181, 179, 179);
+  color: black;
+  opacity: 1;
+  text-shadow: none;
+}
+
+.transaction-form input[type='text']:focus {
+  background-color: white;
+}
+
+.transaction-form label {
+  color: white;
+  font-size: larger;
+  text-shadow: 0px 1px 2px black;
+}
+
+.transaction-submit {
+  border-radius: 10px;
+  font-size: larger;
+  margin: 10px auto;
+}
+
+.transactions-table {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+td, th {
+  padding: 20px;
+  text-align: center;
+}
+
+td {
+  border-radius: 5px;
+}
+
+th {
+  color: red;
+}
+
+.withdraw {
+  background-color: red;
+  color: white;
+}

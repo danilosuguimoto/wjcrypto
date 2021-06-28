@@ -1,0 +1,18 @@
+.alert {
+  background-color: red;
+  border-radius: 20px;
+  color: white;
+  margin: 0 50px 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+#created_acc_number {
+  background-color: white;
+  border-radius: 5px;
+  color: red;
+  display: block;
+  font-size: large;
+  margin: 10px;
+  padding: 5px;
+}
